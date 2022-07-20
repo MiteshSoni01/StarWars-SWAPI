@@ -66,7 +66,17 @@ finalCSV = pd.DataFrame(peopleInfo) #Converting the dictionary into a Pandas Dat
 finalCSV.columns = finalCSV.columns.str.capitalize() #Capitializing the columns name
 finalCSV.to_csv('Characters Detail',index=False) #Creating a CSV
 
+"""------------------Sending the CSV File------------------"""
 
+with open('Characters Detail', 'rb') as f: #Opening the file in Read-Binary Format
+    r = requests.post('http://httpbin.org/post', files={'Character Detail.csv': f}) #Sending the file using POST method
+
+#Checking if the connection was successful
+if r.status_code == 200:
+    print('CSV File Uploaded Successfully')
+    print(r.text)
+else:
+    print('Error Sending the file.')
 
 
 
